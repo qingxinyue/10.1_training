@@ -1,0 +1,48 @@
+# IDE 本机设置
+.idea/
+.vscode/
+
+# CMake 构建目录与缓存
+build/
+cmake-build-*/
+CMakeFiles/
+CMakeCache.txt
+CMakeUserPresets.json
+compile_commands.json
+
+# 编译产物
+*.o
+*.obj
+*.d
+*.elf
+*.axf
+*.hex
+*.bin
+*.map
+*.lst
+*.crf
+*.dep
+*.su
+*.lnp
+*.htm
+
+# CubeMX 本机生成记录
+.mxproject
+
+# Keil 本机设置和备份
+*.uvopt
+*.uvoptx
+*.uvguix*
+*.base@*
+Objects/
+Listings/
+DebugConfig/
+
+/Drivers/CMSIS/DSP/
+/Drivers/CMSIS/NN/
+/Drivers/CMSIS/DAP/
+/Drivers/CMSIS/RTOS/
+/Drivers/CMSIS/RTOS2/
+/Drivers/CMSIS/Core_A/
+/Drivers/CMSIS/Core/
+/Drivers/CMSIS/Documentation/
