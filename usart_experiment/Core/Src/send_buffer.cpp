@@ -38,6 +38,7 @@ void Echo_Poll()
 
 }
 
+//固定字节数转发的接收中断函数
 // extern "C" void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart)
 // {
 //     if (huart == &huart1)
@@ -71,6 +72,7 @@ extern "C" void Echo_run(void)
     Echo_Poll();
 }
 
+//空闲中断的接收中断函数
 extern "C" void HAL_UARTEx_RxEventCallback(UART_HandleTypeDef *huart, uint16_t size)
 {
     if (huart == &huart1 &&

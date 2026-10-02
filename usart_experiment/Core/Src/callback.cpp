@@ -1,16 +1,20 @@
-//
-// Created by qingx on 2026/10/2.
-//
-#include "usart.h"
 #include "main.h"
-extern uint8_t rx_msg[4];
-
-void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart)
+#include "usart.h"
+#include "remote.h"
+extern uint8_t remote_rx_buf[18];
+extern "C" void Remote_Process(uint8_t *data);
+void HAL_UARTEx_RxEventCallback(UART_HandleTypeDef *huart,uint16_t Size)
 {
-    if (huart == &huart1)
+    if (huart->Instance == USART3)
     {
-        if (rx_msg[0] == 'R') HAL_GPIO_WritePin(LED_B_GPIO_Port, LED_B_Pin, GPIO_PIN_RESET);
-        else if (rx_msg[0] == 'M') HAL_GPIO_WritePin(LED_B_GPIO_Port, LED_B_Pin, GPIO_PIN_SET);
-        HAL_UART_Receive_DMA(&huart1, rx_msg, 10);
+        if (Size ==18 )
+        {
+            Remote_Process(remote_rx_buf);
+            //重新启动DMA
+            if (HAL_UARTEx_ReceiveToIdle_IT(&huart3,remote_rx_buf,18) != HAL_OK)
+            {
+                remote.init();
+            }
+        }
     }
 }

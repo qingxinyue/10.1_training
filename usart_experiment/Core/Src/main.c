@@ -45,14 +45,15 @@
 /* Private variables ---------------------------------------------------------*/
 
 /* USER CODE BEGIN PV */
-uint8_t rx_msg[4];
+uint8_t remote_rx_buf[36];
+void Remote_Init(void);
+void Remote_handle(void);
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
 void SystemClock_Config(void);
 /* USER CODE BEGIN PFP */
-HAL_StatusTypeDef UART_INIT(void);
-void Echo_run();
+
 /* USER CODE END PFP */
 
 /* Private user code ---------------------------------------------------------*/
@@ -91,25 +92,16 @@ int main(void)
   MX_GPIO_Init();
   MX_DMA_Init();
   MX_USART1_UART_Init();
+  MX_USART3_UART_Init();
   /* USER CODE BEGIN 2 */
-  if (UART_INIT()!= HAL_OK)
-  {
-    Error_Handler();
-  }
+  HAL_UARTEx_ReceiveToIdle_IT(&huart3,remote_rx_buf,36U);
+
   /* USER CODE END 2 */
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
   while (1)
   {
-    //发送信息
-    // HAL_UART_Transmit(&huart1, tx_msg, sizeof(tx_msg), HAL_MAX_DELAY);
-    // HAL_Delay(1000);
-
-    //接收信息rx_msg
-    // HAL_UART_Receive_DMA(&huart1, rx_msg, 10);
-
-    Echo_run();
 
     /* USER CODE END WHILE */
 
